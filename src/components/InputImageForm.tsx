@@ -1,39 +1,17 @@
-
-import { ReactElement, useRef, useState } from "react";
-import InputImage from "./InputImage";
-import { useGetImageUrl } from "../hooks/useGetImageUrl";
-import ModalForm from "./ModalForm";
+import { ReactElement } from "react";
 import { Button } from "@mui/material";
+import ModalForm from "./ModalForm";
+import InputImage from "./InputImage";
+import { useHandleForms } from "../hooks/useHandleForms";
 
 type Props = {
   title: string;
   id: string;
-  setImage: React.Dispatch<React.SetStateAction<File | null>>
-  formDesc?: string | ReactElement
+  formDesc?: string | ReactElement;
   index?: number | "";
 }
-
-function InputImageForm({ title, id, setImage, index = "", formDesc = undefined }: Props) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const { imageUrl, setImageUrl } = useGetImageUrl({ file: imageFile });
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget?.files && e.currentTarget.files[0]) {
-      const targetFile = e.currentTarget.files[0];
-      setImageFile(targetFile);
-      setImage(targetFile);
-    }
-  };
-
-  const handleClickCancelButton = () => {
-    setImageFile(null);
-    setImageUrl("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
+function InputImageForm({ title, id, index = "", formDesc = undefined }: Props) {
+  const { imageUrl, imageFile, fileInputRef, handleFileChange, handleClickCancelButton } = useHandleForms()
   return (
     <>
       {formDesc && formDesc}
