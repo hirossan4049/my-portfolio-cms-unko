@@ -1,25 +1,46 @@
-import { useState } from "react"
+import { FieldErrors, UseFormRegisterReturn, UseFormWatch } from "react-hook-form";
+import { ValidationSchemaType } from "../schema/validationSchema";
+import { useErrors } from "../hooks/useValidationSchema";
 
 type Props = {
   title: string;
   id: string;
+  register: UseFormRegisterReturn;
+  errors: FieldErrors<ValidationSchemaType>;
   placeholder?: string;
   textarea?: boolean
   maxLength?: number;
+  watch?: UseFormWatch<ValidationSchemaType>
 }
 
-const InputText = ({ title, id, placeholder, textarea = false, maxLength = 200 }: Props) => {
-  const [text, setText] = useState<string>("");
+const InputText = ({ title, id, register, errors, placeholder, textarea = false, maxLength = 200, watch }: Props) => {
+  const error = useErrors(id, errors)
+
   return (
     <div className="w-full p-3">
       <label htmlFor={id} className='mr-auto text-lg'>{title}</label>
       {textarea
         ? <div className="relative w-full border">
-          <textarea id={id} value={text} name={id} rows={5} placeholder={placeholder} maxLength={maxLength} onChange={(e) => setText(e.target.value)} className='w-full p-1 resize-none' />
-          <div className="absolute bottom-1 right-5 text-gray-400">{`${text.length}/${maxLength}`}</div>
+          <textarea
+            id={id}
+            rows={5}
+            placeholder={placeholder}
+            maxLength={maxLength}
+            className='w-full p-1 resize-none'
+            {...register}
+          />
+          <div className="absolute bottom-1 right-5 text-gray-400">{`${watch && watch.length}/${maxLength}`}</div>
+          {error && <p className=" text-red-500">{error.message}</p>}
         </div>
-        : <input id={id} value={text} name={id} placeholder={placeholder} maxLength={20} onChange={(e) => setText(e.target.value)} className='w-full border p-1' />
+        : <input
+          id={id}
+          placeholder={placeholder}
+          maxLength={20}
+          className='w-full border p-1'
+          {...register}
+        />
       }
+      {error && <p className=" text-red-500">{error.message}</p>}
     </div>
   )
 }
