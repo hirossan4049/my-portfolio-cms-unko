@@ -1,22 +1,40 @@
-import useCookiesHooks from "../hooks/useCookiesHooks"
-import { checkAuth } from "../api/useApi"
-import { FormEvent } from "react"
+import useCookiesHooks from "./useCookiesHooks";
+import { LoginFormSchemaType } from "../schema/validationSchema";
+import { useNavigate } from "react-router-dom";
 
-const useLogin = () => {
+
+export const useLogin = () => {
+  const navigete = useNavigate()
   const { logIn } = useCookiesHooks()
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async ({ loginId, password }: LoginFormSchemaType) => {
+    //TODO ログイン認証処理追加
     try {
-      e.preventDefault()
-      const form = new FormData(e.currentTarget);
-      const loginId = form.get("loginID") as string;
-      const password = form.get("password") as string;
-      const result = await checkAuth({ loginId, password })
-      logIn(result.uid)
+      console.log(loginId);
+      console.log(password);
+      logIn('sessionID')
+      navigete('/top')
     } catch (error) {
       console.error(error)
     }
   }
-  return { handleLogin }
-}
+  const handleGoCreateAccount = () => {
+    navigete('/new_account')
+  }
+  return { handleLogin, handleGoCreateAccount }
+};
 
-export default useLogin;
+export const useCreateAccount = () => {
+  const navigete = useNavigate()
+  const backLoginForm = () => {
+    navigete('/login')
+  }
+  const handleCreateAccount = () => {
+    //TODO アカウント作成処理追加
+    try {
+      navigete('/top')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  return { backLoginForm, handleCreateAccount }
+}

@@ -8,14 +8,16 @@ import Contact from "../pages/Contact";
 import ProductDetail from "../pages/ProductDetail";
 import Notfound from "../pages/Notfound";
 import Index from "../pages/Index";
+import NewAccount from "../pages/NewAccount";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes> {/*Routesで囲む*/}
         <Route path="/" element={<Index />} />
-        <Route path="/top" element={<TopPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/new_account" element={<NewAccount />} />
+        <Route path="/top" element={<TopPage />} />
         <Route path="/products" element={<Products />} />
         <Route path="/detail" element={<ProductDetail />} />
         <Route path="/learning" element={<Learning />} />
