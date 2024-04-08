@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegisterReturn, UseFormWatch } from "react-hook-form";
+import { FieldErrors, UseFormRegisterReturn } from "react-hook-form";
 import { ValidationSchemaType } from "../schema/validationSchema";
 import { useErrors } from "../hooks/useValidationSchema";
 
@@ -10,7 +10,7 @@ type Props = {
   placeholder?: string;
   textarea?: boolean
   maxLength?: number;
-  watch?: UseFormWatch<ValidationSchemaType>
+  watch?: string;
 }
 
 const InputText = ({ title, id, register, errors, placeholder, textarea = false, maxLength = 200, watch }: Props) => {
@@ -29,7 +29,7 @@ const InputText = ({ title, id, register, errors, placeholder, textarea = false,
             className='w-full p-1 resize-none'
             {...register}
           />
-          <div className="absolute bottom-1 right-5 text-gray-400">{`${watch && watch.length}/${maxLength}`}</div>
+          <div className="absolute bottom-1 right-5 text-gray-400">{`${watch !== undefined ? watch.length : 0}/${maxLength}`}</div>
           {error && <p className=" text-red-500">{error.message}</p>}
         </div>
         : <input

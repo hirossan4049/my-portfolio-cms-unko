@@ -34,6 +34,24 @@ export const NewAccountFormSchema = z.object({
 
 export type NewAccountFormSchemaType = z.infer<typeof NewAccountFormSchema>;
 
+//
+export const TopFormSchema = z.object({
+  product: z.string().max(200),
+  learning: z.string().max(200),
+  profile: z.string().max(200),
+  contact: z.string().max(200),
+})
+export type TopFormSchemaType = z.infer<typeof TopFormSchema>;
+
+//
+export const ContactFormSchema = z.object({
+  email: z.string()
+    .min(1, 'メールアドレスを入力してください。'),
+})
+export type ContactFormSchemaType = z.infer<typeof ContactFormSchema>;
+
 export type ValidationSchemaType
   = LoginFormSchemaType
+  & ContactFormSchemaType
   & NewAccountFormSchemaType
+  & TopFormSchemaType
