@@ -18,18 +18,21 @@ const useValidationSchema = (schema: any) => {
 export const useErrors = (type: string, errors: FieldErrors<ValidationSchemaType>) => {
   let error: FieldError | undefined;
   switch (type) {
+    //LoginForm
     case 'loginId':
       error = errors.loginId;
       break
     case 'password':
       error = errors.password
       break;
+    //CreateAccount
     case 'newPassword':
       error = errors.newPassword;
       break;
     case 'newPasswordConfirm':
       error = errors.newPasswordConfirm;
       break;
+    //TopPage
     case 'product':
       error = errors.product;
       break;
@@ -42,6 +45,55 @@ export const useErrors = (type: string, errors: FieldErrors<ValidationSchemaType
     case 'contact':
       error = errors.contact;
       break;
+    //Products
+    case 'title':
+      error = errors.title;
+      break;
+    case 'desc':
+      error = errors.desc;
+      break;
+    //ProductDetail
+    case 'appUrl':
+      error = errors.appUrl;
+      break;
+    case 'gitUrl':
+      error = errors.gitUrl;
+      break;
+    case 'lang':
+      error = errors.lang;
+      break;
+    case 'lib':
+      error = errors.lib;
+      break;
+    case 'infras':
+      error = errors.infras;
+      break;
+    case 'func':
+      error = errors.func;
+      break;
+    //Profile
+    case 'name':
+      error = errors.name;
+      break;
+    case 'year':
+      error = errors.year;
+      break;
+    case 'month':
+      error = errors.month;
+      break;
+    case 'day':
+      error = errors.day;
+      break;
+    case 'birthplace':
+      error = errors.birthplace;
+      break;
+    case 'biography':
+      error = errors.biography;
+      break;
+    case 'history':
+      error = errors.history;
+      break;
+    //Contact
     case 'email':
       error = errors.email;
       break;

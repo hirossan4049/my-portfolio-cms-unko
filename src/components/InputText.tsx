@@ -32,15 +32,18 @@ const InputText = ({ title, id, register, errors, placeholder, textarea = false,
           <div className="absolute bottom-1 right-5 text-gray-400">{`${watch !== undefined ? watch.length : 0}/${maxLength}`}</div>
           {error && <p className=" text-red-500">{error.message}</p>}
         </div>
-        : <input
-          id={id}
-          placeholder={placeholder}
-          maxLength={20}
-          className='w-full border p-1'
-          {...register}
-        />
+        :
+        <div>
+          <input
+            id={id}
+            placeholder={placeholder}
+            maxLength={20}
+            className='w-full border p-1'
+            {...register}
+          />
+          {error && <p className=" text-red-500">{error.message}</p>}
+        </div>
       }
-      {error && <p className=" text-red-500">{error.message}</p>}
     </div>
   )
 }
