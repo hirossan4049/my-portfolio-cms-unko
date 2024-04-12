@@ -88,10 +88,12 @@ export const ProfileFormSchema = z.object({
   name: z.string()
     .min(1, "氏名を入力してください。")
     .max(20, "氏名は20文字以内で入力してください。"),
-  year: z.number({ invalid_type_error: "数字で" }),
-    // .min(1, "有効な年を入力してください。")
-    // .max(12, "有効な年を入力してください。")
-    // .optional(),
+  year: z
+    .coerce
+    .number()
+    .min(1990, "有効な年を入力してください。")
+    .max(2024, "有効な年を入力してください。")
+    .or(z.literal('')),
   //TODO 
   month: z
     .number()
